@@ -31,8 +31,12 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
   <body>
 
  <div id="container_products" >
+ <form action="UpdateGoods" name="updateGoods" method="post">
+ <%ArrayList<Goods> goodEvery=GoodsManage.queryGoodsId("12123131231321123"); 
+%>
+ <input name="GoodsOid" type="hidden" value="<%=goodEvery.get(0).getOid()%>">
    <table class="table table-bordered table-hover" width="100%" height="10%">
-<%ArrayList<Goods> goodEvery=GoodsManage.queryGoodsId("2015001004"); %>
+
    <tr>
    <td width="12.5%"><button type="button" class="btn-lg"><img src="image/loginImages/test_03.png" width="80%"></button></td>
    <td width="12.5%"><button type="button" class="btn-lg"><img src="image/loginImages/test_03.png" width="80%"></button></td>
@@ -50,9 +54,11 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
     </tr>
    </table>
    <table  class="table table-bordered table-hover" width="100%">
+   <tr><th><center>商品名稱</center></th><th><center>商品編號</center></th><th><center>商品大分類</center></th><th><center>商品子分類</center></th></tr>
    <tr>
-   <th width="25%"><input type="text"  value="<%=goodEvery.get(0).getGoodsName() %>" class="form-control" placeholder="請輸入商品名稱（九字以內）" required></th>
-   <th width="25%"><input type="text" value="<%=goodEvery.get(0).getGoodsNo() %>" class="form-control" placeholder="請輸入商品編號牌" required></th>
+   <th width="25%"><input type="text"  value="<%=goodEvery.get(0).getGoodsName() %>"  name="GoodsName" class="form-control" placeholder="請輸入商品名稱（九字以內）" required>
+  </th>
+   <th width="25%"><input type="text" value="<%=goodEvery.get(0).getGoodsNo() %>" name="GoodsNo" class="form-control" placeholder="請輸入商品編號牌" required readonly="readonly"></th>
    <th>
    <select name="FatherTypeName" class="form-control">
    <option value="1">請選擇商品大分類</option>
@@ -70,7 +76,14 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
    </select>
    </th>
    </tr>
-   <tr><td colspan="4"><input type="text"  value="<%=goodEvery.get(0).getGoodsNote() %>" class="form-control" placeholder="請輸入商品描述" required></td></tr>
+   <tr>
+   <table  class="table table-bordered table-hover">
+   <tr><th width="10%"><center>商品描述</center></th>
+    <td colspan="4"><input type="text"  value="<%=goodEvery.get(0).getGoodsNote() %>" name="GoodsNote" class="form-control" placeholder="請輸入商品描述" required>
+   </td>
+   </tr>
+   </table>
+   </tr>
    </table>
    
    <table class="table table-bordered table-hover" width="100%">
@@ -94,7 +107,7 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
    <option value="<%=color.get(i).getOid()%>"><%=color.get(i).getColorEn()%></option>
    <%} %>
    </select>
-    <select name="Size" class="form-control">
+    <select name="Size" class="form-control" >
    <option value="30">請選擇規格三（如需要）</option>
    <option value="30">30码</option>
    <option value="32">32码</option>
@@ -140,7 +153,7 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
    String  SupplierPath=supplierQuery.get(0).getSupplierPath();
    String  SupplierNo=supplierQuery.get(0).getSupplierNo();
    %>
-    <select name="" class="form-control">
+    <select name="SuppLier" class="form-control">
    <option value="1">請選擇供應商</option>
    <%for(int i=0;i<supplier.size();i++){ %>
     <option value="<%=supplier.get(i).getOid()%>" onclick="createsupplier();" checked="checked"> <%=supplier.get(i).getSupplierName() %> </option> 
@@ -155,8 +168,10 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
 <input type="text"  class="form-control" value="供應商LINE:<%=supplierQuery.get(0).getSupplierLINE()%>" id="SupplierLINE"  placeholder="供應商LINE" required disabled="disabled">
 </td>
    <td width="25%">
-   <select name="" class="form-control">
-   <option>請選擇供應商狀態</option>
+   <select name="SuppLierState" class="form-control">
+   <option value="1">請選擇供應商狀態</option>
+   <option value="2">正常</option>
+   <option value="3">拉黑</option>
    </select>
    <input type="text"  class="form-control" value="供應商Whatsapp:<%=supplierQuery.get(0).getSupplierWhatsapp()%>" id="SupplierWhatsapp"  placeholder="供應商Whatsapp" required disabled="disabled">
    <input type="text"  class="form-control" value="供應商地址:<%=supplierQuery.get(0).getSupplierPath()%>" id="SupplierPath"  placeholder="供應商地址" required disabled="disabled">
@@ -181,6 +196,7 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
    <th></th>
    </tr>
    </table>
+   </form>
  </div>
  
  

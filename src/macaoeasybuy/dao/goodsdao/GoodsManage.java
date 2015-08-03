@@ -37,9 +37,9 @@ public class GoodsManage {
 //		for(int i=0;i<GoodsManage.queryAllGoods().size();i++){
 //			System.out.println(GoodsManage.queryAllGoods().get(i).getGoodsName());;
 //		}
-		
-		ArrayList<Goods> goodq=GoodsManage.queryGoodsId("63118264820157710001");
-		System.out.println(goodq.get(0).getGoodsName());
+		GoodsManage.updateGoodsInformation(6, "110", "GoodsName", 1, 1, 100, 100.0, 95.5, 10000, "想马上开学考数学新手卡", 1);
+//		ArrayList<Goods> goodq=GoodsManage.queryGoodsId("63118264820157710001");
+//		System.out.println(goodq.get(0).getGoodsName());
 	}
 	
 	/*
@@ -214,19 +214,27 @@ public void insertGoods(String GoodsNo,String GoodsName,int TypeName,int Color,i
 	 /*
 		 * 功能：根据商品编号修改商品信息
 		 * 编者：徐新院
-		 * 时间：2015/7/29
+		 * 时间：2015/8/3
 		 * */
-	 public void updateUserPassword(String userId,String UserName){
+	 public static void updateGoodsInformation(int GoodsOid,String GoodsNo,String GoodsName,int FathertypeName,int Colorch,int SizeInt,
+			                     double Goodsactiveprice,double GoodsmarketPrice,int GoodsNum, String GoodsNote, int Supplier){
          
-	        String sql = "update Goods set PassWord=? where userId=?";
+	        String sql = "update Goods set GoodsNo=?,GoodsName=?,GoodsType=?,GoodsColor=?,GoodsSize=?,GoodsActiveprice=?,GoodsMarketPrice=?,GoodsNum=?,GoodsNote=?,GoodsSupplier=? where Oid=?";
 	        try {
 	            conn = DBConnection.getConnection();
 	            ps = conn.prepareStatement(sql);
-	            ps.setString(1,UserName);
-	            ps.setString(2, userId);
+	            ps.setString(1,GoodsNo);
+	            ps.setString(2, GoodsName);
+	            ps.setInt(3, FathertypeName);
+	            ps.setInt(4, Colorch);
+	            ps.setInt(5, SizeInt);
+	            ps.setDouble(6, Goodsactiveprice);
+	            ps.setDouble(7, GoodsmarketPrice);
+	            ps.setInt(8, GoodsNum);
+	            ps.setString(9, GoodsNote);
+	            ps.setInt(10, Supplier);
+	            ps.setInt(11, GoodsOid);
 	            int rows = ps.executeUpdate();
-	            System.out.println("effect rows:"+userId+"   "+UserName);
-	           
 	        } catch (SQLException ex){
 	            Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
 	        }finally{

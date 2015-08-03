@@ -32,7 +32,7 @@ public class UpdateSupplier extends HttpServlet {
 			int Row=SupplierManage.updateSupplierInfor(SupplierNo, SupplierName, SupplierUserName, SupplierUserPhone, SupplierPath, SupplierLINE, SupplierWhatsapp, SupplierWechat);
 			if(Row!=0){
 				request.setAttribute("updateCheck", 1);
-				response.sendRedirect("editGoods.jsp");
+				response.sendRedirect("editgoods.jsp");
 			}
 	}
 

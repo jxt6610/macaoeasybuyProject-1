@@ -39,9 +39,9 @@ User user = (User)session.getAttribute("user");
    <%if(user.getUserRole()==1){%><th>经理</th><%}else{ %><th>店员</th><%} %>
    <th><%=user.getUserDoenTime() %></th></tr>
    <tr>
-   <th><a href="productManage.jsp">管理商品</a></th>
-   <th><a href="addGoods.jsp">添加商品</a></th>
-   <th><a href="editGoods.jsp">编辑商品</a></th><th></th><th></th></tr>
+   <th><a href="productmanage.jsp">管理商品</a></th>
+   <th><a href="addgoods.jsp">添加商品</a></th>
+   <th><a href="editgoods.jsp">编辑商品</a></th><th></th><th></th></tr>
     </table>
     
   </body>

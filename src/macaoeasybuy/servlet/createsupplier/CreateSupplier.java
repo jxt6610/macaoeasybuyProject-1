@@ -32,7 +32,7 @@ public class CreateSupplier extends HttpServlet {
 		String SupplierPath=new String(request.getParameter("SupplierPath").getBytes("ISO-8859-1"),"utf-8");//π©”¶…ÃWechat
 		SupplierManage.insertSuppliers("20150000002", SupplierName, "1", SupplierUserName,SupplierUserPhone, SupplierPath,
 				100, 1, SupplierLINE, SupplierWhatsapp, SupplierWechat);
-		response.sendRedirect("addGoods.jsp");
+		response.sendRedirect("addgoods.jsp");
 	}
 
 }

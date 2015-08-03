@@ -35,6 +35,13 @@
     <servlet-name>UpdateSupplier</servlet-name>
     <servlet-class>macaoeasybuy.servlet.updatepsupplier.UpdateSupplier</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdateGoods</servlet-name>
+    <servlet-class>macaoeasybuy.servlet.goodsmanage.UpdateGoods</servlet-class>
+  </servlet>
+
 
 
 
@@ -77,6 +84,15 @@
   <servlet-mapping>
     <servlet-name>UpdateSupplier</servlet-name>
     <url-pattern>/UpdateSupplier</url-pattern>
+  </servlet-mapping>
+  <!-- 
+功能：修改商品信息
+编者：徐新院
+时间：2015/8/1
+ -->
+  <servlet-mapping>
+    <servlet-name>UpdateGoods</servlet-name>
+    <url-pattern>/UpdateGoods</url-pattern>
   </servlet-mapping>	
   
   

@@ -46,7 +46,7 @@ public class AddGoods extends HttpServlet {
 		good.insertGoods(GoodsNo,GoodsName, 2, colorCh, size, goodsActiveprice, goodsMarketPrice
 		, goodsNum, 1,"简单包装", 1,
 				"好看的张家界", 1, suppLier, "image/loginImages/10.png");
-   		response.sendRedirect("productManage.jsp");
+   		response.sendRedirect("productmanage.jsp");
 		
 	}
 
