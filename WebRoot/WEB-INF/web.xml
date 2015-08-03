@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+  <display-name></display-name>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Loginservlet</servlet-name>
+    <servlet-class>com.gdit.servlet.Loginservlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UserloginServlet</servlet-name>
+    <servlet-class>macaoeasybuy.servlet.login.UserloginServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AddGoods</servlet-name>
+    <servlet-class>macaoeasybuy.servlet.goodsmanage.AddGoods</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateSupplier</servlet-name>
+    <servlet-class>macaoeasybuy.servlet.createsupplier.CreateSupplier</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdateSupplier</servlet-name>
+    <servlet-class>macaoeasybuy.servlet.updatepsupplier.UpdateSupplier</servlet-class>
+  </servlet>
+
+
+
+
+<!-- 
+功能：用户登录
+编者：徐新院
+时间：2015/7/29
+ -->
+  <servlet-mapping>
+    <servlet-name>UserloginServlet</servlet-name>
+    <url-pattern>/UserloginServlet</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 
+功能：添加商品
+编者：徐新院
+时间：2015/7/30
+ -->
+    <servlet-mapping>
+    <servlet-name>AddGoods</servlet-name>
+    <url-pattern>/AddGoods</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 
+功能：添加供应商
+编者：徐新院
+时间：2015/7/31
+ -->
+ <servlet-mapping>
+    <servlet-name>CreateSupplier</servlet-name>
+    <url-pattern>/CreateSupplier</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 
+功能：修改供应商
+编者：徐新院
+时间：2015/8/1
+ -->
+  <servlet-mapping>
+    <servlet-name>UpdateSupplier</servlet-name>
+    <url-pattern>/UpdateSupplier</url-pattern>
+  </servlet-mapping>	
+  
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
