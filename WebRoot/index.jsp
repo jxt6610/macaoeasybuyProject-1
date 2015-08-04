@@ -22,7 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="container_center_bg">
              <div class="container_center_form" >
              <form action="UserloginServlet" name="login" method="post">
-             <table bordercolor="#B22222" border="2" width="100%">
+            <fieldset>
+            <legend>用户登录</legend>
+             <table width="100%">
              <tr>
              <th width="40%" ><center><img src="image/loginImages/people.png"></center></th>
              <th><input type="text" name="UserName" class="form-control,,input-lg" id="rcornersName" placeholder="请输入登入账号 "></th>
@@ -65,6 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              </th>
              </tr>
              </table>
+             </fieldset>
               </form>
              </div>
             

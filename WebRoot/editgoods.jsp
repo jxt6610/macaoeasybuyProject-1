@@ -13,6 +13,8 @@ ArrayList<Color> color=GoodsManage.queryAllColor();
 ArrayList<Supplier> supplier=GoodsManage.queryAllSupplier();
 ArrayList<GoodsTypes> goodsFatherTypes=GoodsManage.queryAllGoodsFatherTypes();
 ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
+
+String  goodsNo0=(String)request.getParameter("goodsNo");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -31,9 +33,10 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
   <body>
 
  <div id="container_products" >
- <form action="UpdateGoods" name="updateGoods" method="post">
- <%ArrayList<Goods> goodEvery=GoodsManage.queryGoodsId("12123131231321123"); 
+  <%ArrayList<Goods> goodEvery=GoodsManage.queryGoodsId(goodsNo0); 
 %>
+ <form action="UpdateGoods" name="updateGoods" method="post">
+
  <input name="GoodsOid" type="hidden" value="<%=goodEvery.get(0).getOid()%>">
    <table class="table table-bordered table-hover" width="100%" height="10%">
 
@@ -152,6 +155,7 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
    String  SupplierWechat=supplierQuery.get(0).getSupplierWechat();
    String  SupplierPath=supplierQuery.get(0).getSupplierPath();
    String  SupplierNo=supplierQuery.get(0).getSupplierNo();
+   String GoodsNo1=goodEvery.get(0).getGoodsNo();
    %>
     <select name="SuppLier" class="form-control">
    <option value="1">請選擇供應商</option>
@@ -188,9 +192,9 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
    <th width="30%"></th>
    <th width="30%">
    <center>
-   <button type="button" class="btn-info0" id="btn-info0">說明</button>
    <button type="button" class="btn-infodown" id="btn-info0">下架中</button>
    <button type="submit" class="btn-infopull" id="btn-infoctrl_s" >保存並發布</button>
+   <button type="button" class="btn-info0" id="btn-info0">删除</button>
    </center>
    </th>
    <th></th>
@@ -220,6 +224,7 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
          <div class="modal-body" >
          请正确输入信息，确保信息正确安全！
          <br><br><br>
+         <input type="hidden" name="goodsNoS" value="<%=GoodsNo1%>">
          <center>
          <table width="100%" class="table table-bordered table-hover">
          <tr>

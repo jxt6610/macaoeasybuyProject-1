@@ -7,6 +7,11 @@ import java.util.Random;
 public class DataTimeNumber {
 
 
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		System.out.println(DataTimeNumber.GoodsAccount(199, 1));;
+	}
 
 	
 	public static int getSubString(String content, int size, String encoding) throws Exception{
@@ -76,4 +81,29 @@ public class DataTimeNumber {
 			return (tem+tempAccout);
 	  }
 
+	 public static  String GoodsAccount(int Father,int Child){
+
+		 
+		 String goodsAccount1=null;
+		 String goodsAccount2=null;
+		 if(Father<=9){
+			 goodsAccount1="0100"+Father;
+			}else if(Father>=10&&Father<=99){
+				goodsAccount1="010"+Father;
+			}else{
+				goodsAccount1="01"+Father;
+			}
+		 if(Child<=9){
+			 goodsAccount2="0000"+Child;
+			}else if(Child>=10&&Child<=99){
+				goodsAccount2="000"+Child;
+			}else{
+				goodsAccount2="00"+Child;
+			}
+		 
+		 
+		return goodsAccount1+"-"+goodsAccount2;
+		 
+		 
+	 }
 }

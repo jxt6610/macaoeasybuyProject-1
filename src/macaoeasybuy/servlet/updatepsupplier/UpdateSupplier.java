@@ -20,6 +20,7 @@ public class UpdateSupplier extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		    String GoodsNo=new String(request.getParameter("goodsNoS").getBytes("ISO-8859-1"),"utf-8");//商品编号
 		    String SupplierName=new String(request.getParameter("SupplierName").getBytes("ISO-8859-1"),"utf-8");//供应商公司名称
 		    String SupplierUserName=new String(request.getParameter("SupplierUserName").getBytes("ISO-8859-1"),"utf-8");//供应商名称
 			String SupplierUserPhone=new String(request.getParameter("SupplierUserPhone").getBytes("ISO-8859-1"),"utf-8");//供应商电话
@@ -32,7 +33,7 @@ public class UpdateSupplier extends HttpServlet {
 			int Row=SupplierManage.updateSupplierInfor(SupplierNo, SupplierName, SupplierUserName, SupplierUserPhone, SupplierPath, SupplierLINE, SupplierWhatsapp, SupplierWechat);
 			if(Row!=0){
 				request.setAttribute("updateCheck", 1);
-				response.sendRedirect("editgoods.jsp");
+				response.sendRedirect("editgoods.jsp?goodsNo="+GoodsNo);
 			}
 	}
 

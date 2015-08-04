@@ -41,7 +41,7 @@ User user = (User)session.getAttribute("user");
    <tr>
    <th><a href="productmanage.jsp">管理商品</a></th>
    <th><a href="addgoods.jsp">添加商品</a></th>
-   <th><a href="editgoods.jsp">编辑商品</a></th><th></th><th></th></tr>
+   <th><th></th><th></th></tr>
     </table>
     
   </body>

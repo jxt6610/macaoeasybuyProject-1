@@ -11,7 +11,8 @@ ArrayList<Color> color=GoodsManage.queryAllColor();
 ArrayList<Supplier> supplier=GoodsManage.queryAllSupplier();
 ArrayList<GoodsTypes> goodsFatherTypes=GoodsManage.queryAllGoodsFatherTypes();
 ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
-
+int GoodsSize=GoodsManage.queryAllGoods().size();
+int FatherNum=8;
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -53,7 +54,7 @@ ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
    <table  class="table table-bordered table-hover" width="100%">
    <tr>
    <th width="25%"><input type="text"  class="form-control" value=""  name="GoodsName" placeholder="請輸入商品名稱（九字以內）" required></th>
-   <th width="25%"><input type="text"  class="form-control" value="<%=DataTimeNumber.randomAccount()%>"readonly="readonly"  name="GoodsNo" placeholder="請輸入商品編號牌" required></th>
+   <th width="25%"><input type="text"  class="form-control" value="<%=DataTimeNumber.GoodsAccount(FatherNum, GoodsSize)%>"readonly="readonly"  name="GoodsNo" placeholder="請輸入商品編號牌" required></th>
    <th>
    <select name="FatherTypeName" class="form-control">
    <option value="1">請選擇商品大分類</option>
