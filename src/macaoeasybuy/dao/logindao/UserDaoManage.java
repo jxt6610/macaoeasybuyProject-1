@@ -42,11 +42,15 @@ public class UserDaoManage {
 //			System.out.println("不空");
 //		}
 		
-		ArrayList<User> user0=UserDaoManage.queryAllUser(2,1);
-		for(int i=0;i<user0.size();i++){
-			System.out.println(user0.get(i).getTotal_pages());
-			
-		}
+//		ArrayList<User> user0=UserDaoManage.queryAllUser(2,1);
+//		for(int i=0;i<user0.size();i++){
+//			System.out.println(user0.get(i).getTotal_pages());
+//			
+//		}
+		User user1=UserDaoManage.queryId("2015003");
+		System.out.println(user1.getCurrent_page());
+		
+		
 		
 	}
 	
@@ -111,8 +115,8 @@ public class UserDaoManage {
 		 * 编者：徐新院
 		 * 时间：2015/7/29
 		 * */
-	 public void queryId(String userId){//姓名
-		   
+	 public static User queryId(String userId){//姓名
+		 User user=new User();
 	        String sql = "select * from Usermanage where UserId=?";
 	        try {
 	            conn = DBConnection.getConnection();
@@ -121,17 +125,17 @@ public class UserDaoManage {
 	            rs = ps.executeQuery();
 	            while(rs.next()){
 	                //取出数据
-	            	  String UserId = rs.getString("UserId");
-		                String UserName = rs.getString("UserName");
-		                String UserSex = rs.getString("UserSex");
-		                String UserDoenTime = rs.getString("UserDoenTime");
-		                 int number=rs.getInt("UserRole");
-		                String bintime=rs.getString("PassWord");
-		                rs.getString("UserPhone");
-			        	 rs.getString("UserWechat");
-			        	  rs.getString("UserWhatsapp");
-			        	  rs.getInt("UserProper");
-	                System.out.println(userId+","+UserName);
+	            	
+	            	  user.setUserId(rs.getString("UserId"));
+		               user.setUserName(rs.getString("UserName"));
+		               user.setUserSex(rs.getString("UserSex"));
+		               user.setUserDoenTime(rs.getString("UserDoenTime"));
+		               user.setUserRole(rs.getInt("UserRole"));
+		               user.setPassWord(rs.getString("PassWord"));
+		               user.setUserPhone(rs.getString("UserPhone"));
+			           user.setUserWechat(rs.getString("UserWechat"));
+			          user.setUserWhatsapp(rs.getString("UserWhatsapp"));
+			          user.setUserProper(rs.getInt("UserProper"));
 	            }
 	        } catch (SQLException ex) {
 	            Logger.getLogger(UserDaoManage.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,6 +148,7 @@ public class UserDaoManage {
 	                Logger.getLogger(UserDaoManage.class.getName()).log(Level.SEVERE, null, ex);
 	            }
 	        }
+			return user;
 	    }
 	 
 	 

@@ -6,7 +6,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 User user = (User)session.getAttribute("user");
-//ArrayList<User> userall=UserDaoManage.queryAllUsers();
 
 String pageNo=request.getParameter("pageno");
 if(pageNo==null){
@@ -14,7 +13,10 @@ pageNo="1";
    }
  int pageno=Integer.parseInt(pageNo);
 ArrayList<User> userall=UserDaoManage.queryAllUser(6, pageno);
+String UserId=request.getParameter("userID");
+ User useredit=UserDaoManage.queryId(UserId);
 %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -93,7 +95,67 @@ ArrayList<User> userall=UserDaoManage.queryAllUser(6, pageno);
        </table>
        </form>
        </th>
-       <th width="5%"></th>
+       <th width="25%">
+       
+        <form action="AddUserInfor" name="UserAdd1" method="post">
+       <table class="table table-bordered table-hover" width="100%">
+       <tr><td colspan="3" align="center"><button type="button" class="btn-lg0"><img alt="" src="image/loginImages/head_10.png"><br>點擊拍照或<br>選取相冊</button></td></tr>
+       <tr><td>店員姓名</td>
+       <th colspan="2"><input type="text"  class="form-control" value="<%=useredit.getUserName() %>"  name="UserName" placeholder="店員姓名" required></th></tr>
+        <tr><td>性別</td>
+       <th colspan="2">
+       <%if(useredit.getUserSex().equals("男")){ %>
+        <input type="radio" name="UserSex" value="男" checked="checked">男<img src="image/loginImages/feman.png" width="5%">
+       &nbsp;&nbsp;&nbsp; <input type="radio" name="UserSex" value="女" >女
+       <%}else{ %>
+       <input type="radio" name="UserSex" value="男" >男<img src="image/loginImages/feman.png" width="5%">
+       &nbsp;&nbsp;&nbsp; <input type="radio" name="UserSex" value="女" checked="checked" >女
+       <img src="image/loginImages/man.png" width="5%">
+       <%} %>
+       </th>
+       </tr>
+       <tr><td>店員賬號</td>
+       <th colspan="2"><input type="text"  class="form-control" value="<%=useredit.getUserId() %>"  name="UserId" placeholder="店員賬號" required></th></tr>
+       <tr><td>店員密碼</td>
+       <th colspan="2"><input type="password"  class="form-control" value="<%=useredit.getPassWord() %>"  name="PassWord" placeholder="店員密碼" required></th></tr>
+       <tr><td>店員手機</td>
+       <th colspan="2"><input type="text"  class="form-control" value="<%=useredit.getUserPhone() %>"  name="UserPhone" placeholder="店員手機" required></th></tr>
+       <tr><td>店員Wechat</td>
+       <th colspan="2"><input type="text"  class="form-control" value="<%=useredit.getUserWechat()%>"  name="UserWechat" placeholder="店員Wechat" required></th></tr>
+       <tr><td>店員Whatsapp</td>
+       <th colspan="2"><input type="text"  class="form-control" value="<%=useredit.getUserWhatsapp()%>" name="UserWhatsapp" placeholder="店員Whatsapp" required></th></tr>
+       <tr><td>
+       <select class="form-control" name="UserRole">
+       <option value="1">選擇角色</option>
+       <option value="1">店長</option>
+       <option value="2">副店長</option>
+       <option value="3">店助理</option>
+       <option value="4">收銀員</option>
+       <option value="5">倉管員</option>
+       <option value="6">採購員</option>
+       <option value="7">海外買手</option>
+       <option value="8">導購員</option>
+       <option value="9">營業員</option>
+       <option value="10">設計師</option>
+       <option value="11">陳列師</option>
+       <option value="12">創意文案</option>
+       <option value="13">送貨員</option>
+       </select>
+       </td>
+       <td>
+        <select class="form-control" name="UserProper">
+       <option value="2">選擇屬性</option>
+       <option value="1">離職</option>
+       <option value="2">全職</option>
+       <option value="3">兼職</option>
+       </select>
+       </td>
+       <td> <button type="button" id="createSupplier" class="form-control" data-toggle="modal" data-target="#myModal">設定權限</button></td>
+       </tr>
+       <tr><td colspan="3"><button type="submit" class="btn-shopassistant">保存</button><button type="reset" class="btn-shopassistant">修改</button></td></tr>
+       </table>
+       </form>
+       </th>
         <th>
         
           <table class="table table-bordered table-hover">
@@ -108,7 +170,7 @@ ArrayList<User> userall=UserDaoManage.queryAllUser(6, pageno);
    <%for(int j=0;j<3;j++){ %>
    <th width="25%" height="50%">
    <table class="table table-bordered table-hover" border="2" bordercolor="#A52A2A" width="100%" style="margin-bottom: -1%;">
-     <tr><th rowspan="5" width="30%"><a href="shopmemberedit.jsp?userID=<%=userall.get(num).getUserId()%>"><img src="image/loginImages/user.jpg" width="100%"></a></th>
+     <tr><th rowspan="5" width="30%"><a ><img src="image/loginImages/user.jpg" width="100%"></a></th>
     <%if(userall.get(num).getUserRole()==1){ %> 
      <th><%=userall.get(num).getUserName() %>（店長）</th>
      <%}else if(userall.get(num).getUserRole()==2){%>
@@ -181,7 +243,7 @@ ArrayList<User> userall=UserDaoManage.queryAllUser(6, pageno);
 <%for(int a=0;a<Col;a++){ %>
   <th width="25%" height="50%">
    <table class="table table-bordered table-hover" border="2" bordercolor="#A52A2A" width="100%" style="margin-bottom: -1%;">
-     <tr><th rowspan="5" width="30%"><a href="shopmemberedit.jsp?userID=<%=userall.get(num).getUserId()%>"><img src="image/loginImages/user.jpg" width="100%"></a></th>
+     <tr><th rowspan="5" width="30%"><a ><img src="image/loginImages/user.jpg" width="100%"></a></th>
     <%if(userall.get(num).getUserRole()==1){ %> 
      <th><%=userall.get(num).getUserName() %>（店長）</th>
      <%}else if(userall.get(num).getUserRole()==2){%>
@@ -254,7 +316,7 @@ ArrayList<User> userall=UserDaoManage.queryAllUser(6, pageno);
    <%for(int j=0;j<3;j++){ %>
    <th width="25%" height="50%">
    <table class="table table-bordered table-hover" border="2" bordercolor="#A52A2A" width="100%" style="margin-bottom: -1%;">
-     <tr><th rowspan="5" width="30%"><a href="shopmemberedit.jsp?userID=<%=userall.get(num).getUserId()%>"><img src="image/loginImages/user.jpg" width="100%"></a></button></th>
+     <tr><th rowspan="5" width="30%"><a ><img src="image/loginImages/user.jpg" width="100%"></a></button></th>
      <%if(userall.get(num).getUserRole()==1){ %> 
      <th><%=userall.get(num).getUserName() %>（店長）</th>
      <%}else if(userall.get(num).getUserRole()==2){%>
@@ -333,12 +395,12 @@ ArrayList<User> userall=UserDaoManage.queryAllUser(6, pageno);
 <%} %>
 <tr><th colspan="3">
 <center>
-<a href="shopmember.jsp?pageno=1">首頁</a> |&nbsp;&nbsp;&nbsp;&nbsp;第<%=userall.get(1).getCurrent_page() %>頁 &nbsp;&nbsp;&nbsp;
+<a href="shopmemberedit.jsp?pageno=1">首頁</a> |&nbsp;&nbsp;&nbsp;&nbsp;第<%=userall.get(1).getCurrent_page() %>頁 &nbsp;&nbsp;&nbsp;
 <select>
 <option>1</option>
 <option>2</option>
 </select>
-&nbsp;&nbsp;&nbsp;|<a href="shopmember.jsp?pageno=<%=userall.get(1).getTotal_pages()%>">尾頁</a>&nbsp;&nbsp;&nbsp;共2頁
+&nbsp;&nbsp;&nbsp;|<a href="shopmemberedit.jsp?pageno=<%=userall.get(1).getTotal_pages()%>">尾頁</a>&nbsp;&nbsp;&nbsp;共2頁
 </center>
 </th></tr>
    </table>

@@ -32,7 +32,6 @@ public class AddUserInfor extends HttpServlet {
 
 		  int Userproper=Integer.parseInt(UserProper);
 		  int Userrole=Integer.parseInt(UserRole);
-		  System.out.println(UserId);
 		  UserDaoManage.insertUser(UserId, UserName, UserSex, Userrole, PassWord, UserPhone, UserWechat, UserWhatsapp, Userproper);
 		  response.sendRedirect("shopmember.jsp");
 	}
