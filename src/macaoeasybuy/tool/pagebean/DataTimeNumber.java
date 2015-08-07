@@ -103,7 +103,26 @@ public class DataTimeNumber {
 		 
 		 
 		return goodsAccount1+"-"+goodsAccount2;
+	 }
+	 
+	 public static String LogNumber(int num){
 		 
+		 Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
+			int year = c.get(Calendar.YEAR); 
+			int month = c.get(Calendar.MONTH); 
+			int date = c.get(Calendar.DATE); 
+			int hour = c.get(Calendar.HOUR_OF_DAY); 
+			int minute = c.get(Calendar.MINUTE); 
+			int second = c.get(Calendar.SECOND); 
+			String Lognumber;
+		 if(num<=9){
+			 Lognumber=year+"00"+num;
+			}else if(num>=10&&num<=99){
+				Lognumber=year+"0"+num;
+			}else{
+				Lognumber=year+""+num;
+			}
+		return Lognumber;
 		 
 	 }
 }

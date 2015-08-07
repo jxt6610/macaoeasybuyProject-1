@@ -42,13 +42,13 @@ public class UserDaoManage {
 //			System.out.println("²»¿Õ");
 //		}
 		
-//		ArrayList<User> user0=UserDaoManage.queryAllUser(2,1);
-//		for(int i=0;i<user0.size();i++){
-//			System.out.println(user0.get(i).getTotal_pages());
-//			
-//		}
-		User user1=UserDaoManage.queryId("2015003");
-		System.out.println(user1.getCurrent_page());
+		ArrayList<User> user0=UserDaoManage.queryAllUser(4,1);
+		for(int i=0;i<user0.size();i++){
+			System.out.println(user0.get(i).getTotal_pages());
+			
+		}
+//		User user1=UserDaoManage.queryId("2015003");
+//		System.out.println(user1.getCurrent_page());
 		
 		
 		

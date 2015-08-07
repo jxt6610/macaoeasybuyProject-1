@@ -12,7 +12,7 @@ if(pageNo==null){
 pageNo="1";
    }
  int pageno=Integer.parseInt(pageNo);
-ArrayList<User> userall=UserDaoManage.queryAllUser(6, pageno);
+ArrayList<User> userall=UserDaoManage.queryAllUser(4, pageno);
 String UserId=request.getParameter("userID");
  User useredit=UserDaoManage.queryId(UserId);
 %>
@@ -58,7 +58,7 @@ String UserId=request.getParameter("userID");
        <tr><td>店員密碼</td>
        <th colspan="2"><input type="password"  class="form-control" value="123456"  name="PassWord" placeholder="店員密碼" required></th></tr>
        <tr><td>店員手機</td>
-       <th colspan="2"><input type="text"  class="form-control" value=""  name="UserPhone" placeholder="店員手機" required></th></tr>
+       <th colspan="2"><input type="text"  class="form-control" value=""  id="UserPhone" name="UserPhone"  onchange="checkValidate()" placeholder="店員手機" required ></th></tr>
        <tr><td>店員Wechat</td>
        <th colspan="2"><input type="text"  class="form-control" value=""  name="UserWechat" placeholder="店員Wechat" required></th></tr>
        <tr><td>店員Whatsapp</td>
@@ -104,7 +104,7 @@ String UserId=request.getParameter("userID");
        <th colspan="2"><input type="text"  class="form-control" value="<%=useredit.getUserName() %>"  name="UserName" placeholder="店員姓名" required></th></tr>
         <tr><td>性別</td>
        <th colspan="2">
-       <%if(useredit.getUserSex().equals("男")){ %>
+       <%if(useredit.getUserSex()==""){ %>
         <input type="radio" name="UserSex" value="男" checked="checked">男<img src="image/loginImages/feman.png" width="5%">
        &nbsp;&nbsp;&nbsp; <input type="radio" name="UserSex" value="女" >女
        <%}else{ %>
@@ -119,7 +119,7 @@ String UserId=request.getParameter("userID");
        <tr><td>店員密碼</td>
        <th colspan="2"><input type="password"  class="form-control" value="<%=useredit.getPassWord() %>"  name="PassWord" placeholder="店員密碼" required></th></tr>
        <tr><td>店員手機</td>
-       <th colspan="2"><input type="text"  class="form-control" value="<%=useredit.getUserPhone() %>"  name="UserPhone" placeholder="店員手機" required></th></tr>
+       <th colspan="2"><input type="text"  class="form-control" value="<%=useredit.getUserPhone() %>"  name="UserPhone" id="UserPhone" onchange="checkValidate()" placeholder="店員手機" required></th></tr>
        <tr><td>店員Wechat</td>
        <th colspan="2"><input type="text"  class="form-control" value="<%=useredit.getUserWechat()%>"  name="UserWechat" placeholder="店員Wechat" required></th></tr>
        <tr><td>店員Whatsapp</td>
@@ -160,54 +160,49 @@ String UserId=request.getParameter("userID");
         
           <table class="table table-bordered table-hover">
    <%
-   int Row=userall.size()/3;
-   int Col=userall.size()%3;
+   int Row=userall.size()/2;
+   int Col=userall.size()%2;
    int num=0;
    if(Col!=0){
     %>
    <%for(int i=0;i<Row;i++){ %>
    <tr>
-   <%for(int j=0;j<3;j++){ %>
+   <%for(int j=0;j<2;j++){ %>
    <th width="25%" height="50%">
    <table class="table table-bordered table-hover" border="2" bordercolor="#A52A2A" width="100%" style="margin-bottom: -1%;">
      <tr><th rowspan="5" width="30%"><a ><img src="image/loginImages/user.jpg" width="100%"></a></th>
     <%if(userall.get(num).getUserRole()==1){ %> 
-     <th><%=userall.get(num).getUserName() %>（店長）</th>
+     <th><%=userall.get(num).getUserName() %>（店長）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==2){%>
-      <th><%=userall.get(num).getUserName() %>（副店長）</th>
+      <th><%=userall.get(num).getUserName() %>（副店長）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==3){ %>
-       <th><%=userall.get(num).getUserName() %>（店助理）</th>
+       <th><%=userall.get(num).getUserName() %>（店助理）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
    <%} else if(userall.get(num).getUserRole()==4){%> 
-      <th><%=userall.get(num).getUserName() %>（收銀員）</th>
+      <th><%=userall.get(num).getUserName() %>（收銀員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==5){%>
-      <th><%=userall.get(num).getUserName() %>（倉管員）</th>
+      <th><%=userall.get(num).getUserName() %>（倉管員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==6){ %>
-      <th><%=userall.get(num).getUserName() %>（採購員）</th>
+      <th><%=userall.get(num).getUserName() %>（採購員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==7){%>
-     <th><%=userall.get(num).getUserName() %>（海外買手）</th>
+     <th><%=userall.get(num).getUserName() %>（海外買手）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==8){%>
-     <th><%=userall.get(num).getUserName() %>（導購員）</th>
+     <th><%=userall.get(num).getUserName() %>（導購員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==9){%>
-     <th><%=userall.get(num).getUserName() %>（營業員）</th>
+     <th><%=userall.get(num).getUserName() %>（營業員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==10){%>
-     <th><%=userall.get(num).getUserName() %>（設計師）</th>
+     <th><%=userall.get(num).getUserName() %>（設計師）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==11){ %>
-     <th><%=userall.get(num).getUserName() %>（陳列師）</th>
+     <th><%=userall.get(num).getUserName() %>（陳列師）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==12){ %>
-      <th><%=userall.get(num).getUserName() %>（陳列師）</th>
+      <th><%=userall.get(num).getUserName() %>（陳列師）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else{ %>
-     <th><%=userall.get(num).getUserName() %>（送貨員）</th>
+     <th><%=userall.get(num).getUserName() %>（送貨員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} %>
      <td rowspan="2" width="20%"><center><input type="image" src="image/loginImages/right.png" class="btn-default"></center></td>
      </tr> 
      <tr><td>手機號:<%=userall.get(num).getUserPhone() %></td>
      </tr>
      <tr><td>微信：<%=userall.get(num).getUserWechat() %></td>
-     <%if(userall.get(num).getUserSex().equals("女")){%>
-     <td rowspan="2"><center><img src="image/loginImages/man.png" width="30%"></center></td>
-     <%}else{ %>
-       <td rowspan="2"><center><img src="image/loginImages/feman.png" width="30%"></center></td>
-     <%}%>
      </tr>
      <tr><td>Whatsapp：<%=userall.get(num).getUserWhatsapp()%></td>
      </tr>
@@ -217,15 +212,30 @@ String UserId=request.getParameter("userID");
       <table class="table table-bordered table-hover">
       <tr>
       <th>
-      <select class="form-control">
-      <option>店主</option>
-      <option>倉管</option>
-      </select>
+      <select class="form-control" name="UserRole">
+       <option value="1">選擇角色</option>
+       <option value="1">店長</option>
+       <option value="2">副店長</option>
+       <option value="3">店助理</option>
+       <option value="4">收銀員</option>
+       <option value="5">倉管員</option>
+       <option value="6">採購員</option>
+       <option value="7">海外買手</option>
+       <option value="8">導購員</option>
+       <option value="9">營業員</option>
+       <option value="10">設計師</option>
+       <option value="11">陳列師</option>
+       <option value="12">創意文案</option>
+       <option value="13">送貨員</option>
+       </select>
       </th>
       <th>
-      <select class="form-control">
-      <option>選擇屬性</option>
-      </select>
+     <select class="form-control" name="UserProper">
+       <option value="2">選擇屬性</option>
+       <option value="1">離職</option>
+       <option value="2">全職</option>
+       <option value="3">兼職</option>
+       </select>
       </th>
        <th>
     <button type="button" id="createSupplier" class="form-control" data-toggle="modal" data-target="#myModal">設定權限</button>
@@ -245,42 +255,37 @@ String UserId=request.getParameter("userID");
    <table class="table table-bordered table-hover" border="2" bordercolor="#A52A2A" width="100%" style="margin-bottom: -1%;">
      <tr><th rowspan="5" width="30%"><a ><img src="image/loginImages/user.jpg" width="100%"></a></th>
     <%if(userall.get(num).getUserRole()==1){ %> 
-     <th><%=userall.get(num).getUserName() %>（店長）</th>
+     <th><%=userall.get(num).getUserName() %>（店長）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==2){%>
-      <th><%=userall.get(num).getUserName() %>（副店長）</th>
+      <th><%=userall.get(num).getUserName() %>（副店長）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==3){ %>
-       <th><%=userall.get(num).getUserName() %>（店助理）</th>
+       <th><%=userall.get(num).getUserName() %>（店助理）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
    <%} else if(userall.get(num).getUserRole()==4){%> 
-      <th><%=userall.get(num).getUserName() %>（收銀員）</th>
+      <th><%=userall.get(num).getUserName() %>（收銀員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==5){%>
-      <th><%=userall.get(num).getUserName() %>（倉管員）</th>
+      <th><%=userall.get(num).getUserName() %>（倉管員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==6){ %>
-      <th><%=userall.get(num).getUserName() %>（採購員）</th>
+      <th><%=userall.get(num).getUserName() %>（採購員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==7){%>
-     <th><%=userall.get(num).getUserName() %>（海外買手）</th>
+     <th><%=userall.get(num).getUserName() %>（海外買手）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==8){%>
-     <th><%=userall.get(num).getUserName() %>（導購員）</th>
+     <th><%=userall.get(num).getUserName() %>（導購員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==9){%>
-     <th><%=userall.get(num).getUserName() %>（營業員）</th>
+     <th><%=userall.get(num).getUserName() %>（營業員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==10){%>
-     <th><%=userall.get(num).getUserName() %>（設計師）</th>
+     <th><%=userall.get(num).getUserName() %>（設計師）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==11){ %>
-     <th><%=userall.get(num).getUserName() %>（陳列師）</th>
+     <th><%=userall.get(num).getUserName() %>（陳列師）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==12){ %>
-      <th><%=userall.get(num).getUserName() %>（陳列師）</th>
+      <th><%=userall.get(num).getUserName() %>（陳列師）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else{ %>
-     <th><%=userall.get(num).getUserName() %>（送貨員）</th>
+     <th><%=userall.get(num).getUserName() %>（送貨員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} %>
      <td rowspan="2" width="20%"><center><input type="image" src="image/loginImages/right.png" class="btn-default"></center></td>
      </tr> 
      <tr><td>手機號:<%=userall.get(num).getUserPhone() %></td>
      </tr>
      <tr><td>微信：<%=userall.get(num).getUserWechat() %></td>
-     <%if(userall.get(num).getUserSex().equals("女")){%>
-     <td rowspan="2"><center><img src="image/loginImages/man.png" width="30%"></center></td>
-     <%}else{ %>
-       <td rowspan="2"><center><img src="image/loginImages/feman.png" width="30%"></center></td>
-     <%}%>
      <tr><td>Whatsapp：<%=userall.get(num).getUserWhatsapp()%></td>
      </tr>
      <tr><td> PastTime:<%=userall.get(num).getUserDoenTime()%></td>
@@ -289,15 +294,30 @@ String UserId=request.getParameter("userID");
       <table class="table table-bordered table-hover">
       <tr>
       <th>
-      <select class="form-control">
-      <option>店主</option>
-      <option>倉管</option>
-      </select>
+     <select class="form-control" name="UserRole">
+       <option value="1">選擇角色</option>
+       <option value="1">店長</option>
+       <option value="2">副店長</option>
+       <option value="3">店助理</option>
+       <option value="4">收銀員</option>
+       <option value="5">倉管員</option>
+       <option value="6">採購員</option>
+       <option value="7">海外買手</option>
+       <option value="8">導購員</option>
+       <option value="9">營業員</option>
+       <option value="10">設計師</option>
+       <option value="11">陳列師</option>
+       <option value="12">創意文案</option>
+       <option value="13">送貨員</option>
+       </select>
       </th>
       <th>
-      <select class="form-control">
-      <option>選擇屬性</option>
-      </select>
+     <select class="form-control" name="UserProper">
+       <option value="2">選擇屬性</option>
+       <option value="1">離職</option>
+       <option value="2">全職</option>
+       <option value="3">兼職</option>
+       </select>
       </th>
        <th>
     <button type="button" id="createSupplier" class="form-control" data-toggle="modal" data-target="#myModal">設定權限</button>
@@ -313,72 +333,75 @@ String UserId=request.getParameter("userID");
 <%}else{%>
 <%for(int i=0;i<Row;i++){ %>
 <tr>
-   <%for(int j=0;j<3;j++){ %>
+   <%for(int j=0;j<2;j++){ %>
    <th width="25%" height="50%">
    <table class="table table-bordered table-hover" border="2" bordercolor="#A52A2A" width="100%" style="margin-bottom: -1%;">
      <tr><th rowspan="5" width="30%"><a ><img src="image/loginImages/user.jpg" width="100%"></a></button></th>
      <%if(userall.get(num).getUserRole()==1){ %> 
-     <th><%=userall.get(num).getUserName() %>（店長）</th>
+     <th><%=userall.get(num).getUserName() %>（店長）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==2){%>
-      <th><%=userall.get(num).getUserName() %>（副店長）</th>
+      <th><%=userall.get(num).getUserName() %>（副店長）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==3){ %>
-       <th><%=userall.get(num).getUserName() %>（店助理）</th>
+       <th><%=userall.get(num).getUserName() %>（店助理）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
    <%} else if(userall.get(num).getUserRole()==4){%> 
-      <th><%=userall.get(num).getUserName() %>（收銀員）</th>
+      <th><%=userall.get(num).getUserName() %>（收銀員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==5){%>
-      <th><%=userall.get(num).getUserName() %>（倉管員）</th>
+      <th><%=userall.get(num).getUserName() %>（倉管員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==6){ %>
-      <th><%=userall.get(num).getUserName() %>（採購員）</th>
+      <th><%=userall.get(num).getUserName() %>（採購員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==7){%>
-     <th><%=userall.get(num).getUserName() %>（海外買手）</th>
+     <th><%=userall.get(num).getUserName() %>（海外買手）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==8){%>
-     <th><%=userall.get(num).getUserName() %>（導購員）</th>
+     <th><%=userall.get(num).getUserName() %>（導購員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==9){%>
-     <th><%=userall.get(num).getUserName() %>（營業員）</th>
+     <th><%=userall.get(num).getUserName() %>（營業員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} else if(userall.get(num).getUserRole()==10){%>
-     <th><%=userall.get(num).getUserName() %>（設計師）</th>
+     <th><%=userall.get(num).getUserName() %>（設計師）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==11){ %>
-     <th><%=userall.get(num).getUserName() %>（陳列師）</th>
+     <th><%=userall.get(num).getUserName() %>（陳列師）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else if(userall.get(num).getUserRole()==12){ %>
-      <th><%=userall.get(num).getUserName() %>（陳列師）</th>
+      <th><%=userall.get(num).getUserName() %>（陳列師）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%}else{ %>
-     <th><%=userall.get(num).getUserName() %>（送貨員）</th>
+     <th><%=userall.get(num).getUserName() %>（送貨員）<%if(userall.get(num).getUserSex().equals("女")){ %><center><img src="image/loginImages/man.png" width="10%"></center><%}else{ %><center><img src="image/loginImages/feman.png" width="10%"></center><%} %></th>
      <%} %>
      <td rowspan="2" width="20%"><center><input type="image" src="image/loginImages/right.png" class="btn-default"></center></td>
      </tr> 
      <tr><td>手機號:<%=userall.get(num).getUserPhone() %></td>
      </tr>
      <tr><td>微信：<%=userall.get(num).getUserWechat() %></td>
-     <%if(userall.get(num).getUserSex().equals("女")){%>
-     <td rowspan="2"><center><img src="image/loginImages/man.png" width="30%"></center></td>
-     <%}else{ %>
-       <td rowspan="2"><center><img src="image/loginImages/feman.png" width="30%"></center></td>
-     <%}%>
     </tr>
      <tr><td>Whatsapp：<%=userall.get(num).getUserWhatsapp()%></td>
      </tr>
      <tr><td> PastTime:<%=userall.get(num).getUserDoenTime()%></td>
-     <%if(userall.get(num).getUserProper()==1) {%>
-     <td><a>離職</a></td>
-     <%}else if(userall.get(num).getUserProper()==2){ %>
-       <td><a>全職</a></td>
-     <%} else{%>
-     <td><a>兼職</a></td>
-     <%} %>
      </tr>
      <tr><td colspan="3">
       <table class="table table-bordered table-hover">
       <tr>
       <th>
-      <select class="form-control">
-      <option>店主</option>
-      <option>倉管</option>
-      </select>
+      <select class="form-control" name="UserRole">
+       <option value="1">選擇角色</option>
+       <option value="1">店長</option>
+       <option value="2">副店長</option>
+       <option value="3">店助理</option>
+       <option value="4">收銀員</option>
+       <option value="5">倉管員</option>
+       <option value="6">採購員</option>
+       <option value="7">海外買手</option>
+       <option value="8">導購員</option>
+       <option value="9">營業員</option>
+       <option value="10">設計師</option>
+       <option value="11">陳列師</option>
+       <option value="12">創意文案</option>
+       <option value="13">送貨員</option>
+       </select>
       </th>
       <th>
-      <select class="form-control">
-      <option>選擇屬性</option>
-      </select>
+      <select class="form-control" name="UserProper">
+       <option value="2">選擇屬性</option>
+       <option value="1">離職</option>
+       <option value="2">全職</option>
+       <option value="3">兼職</option>
+       </select>
       </th>
        <th>
        <button type="button" id="createSupplier" class="form-control" data-toggle="modal" data-target="#myModal">設定權限</button>
@@ -395,12 +418,11 @@ String UserId=request.getParameter("userID");
 <%} %>
 <tr><th colspan="3">
 <center>
-<a href="shopmemberedit.jsp?pageno=1">首頁</a> |&nbsp;&nbsp;&nbsp;&nbsp;第<%=userall.get(1).getCurrent_page() %>頁 &nbsp;&nbsp;&nbsp;
-<select>
-<option>1</option>
-<option>2</option>
-</select>
-&nbsp;&nbsp;&nbsp;|<a href="shopmemberedit.jsp?pageno=<%=userall.get(1).getTotal_pages()%>">尾頁</a>&nbsp;&nbsp;&nbsp;共2頁
+<%int i=2; %>
+<a href="shopmemberedit.jsp?pageno=1">首頁</a> |&nbsp;&nbsp;&nbsp;&nbsp;第<%=userall.get(1).getCurrent_page()%>頁 &nbsp;&nbsp;&nbsp;
+<a href="shopmemberedit.jsp?pageno=<%=i %>" <% i--;%>>上一頁</a>
+<a href="shopmemberedit.jsp?pageno=<%=i %>" <% i++;%>>下一頁</a>
+&nbsp;&nbsp;&nbsp;|<a href="shopmemberedit.jsp?pageno=3">尾頁</a>&nbsp;&nbsp;&nbsp;共<%=userall.get(1).getTotal_pages() %>頁
 </center>
 </th></tr>
    </table>
@@ -535,8 +557,35 @@ String UserId=request.getParameter("userID");
       </form>
 </div><!-- /.modal -->
 </div>
-   <script  type="text/javascript">
-  function supplier(){
+  <script  type="text/javascript">
+      function checkValidate(){
+      var workerPhone=document.getElementById("UserPhone").value;
+        if(workerPhone.length==0)
+        {
+           alert("请输入手机号码！");
+           document.getElementById("UserPhone").value="";
+           document.getElementById("UserPhone").focus();
+           return false;
+        }    
+        if(workerPhone.length!=11)
+        {
+            alert("请输入有效的手机号码！");
+            document.getElementById("UserPhone").value="";
+            document.getElementById("UserPhone").focus();
+            return false;
+        }
+        var myreg = /^(((13[0-9]{1})|159|153)+\d{8})$/;
+        if(!myreg.test(workerPhone))
+        {
+            alert("请输入有效的手机号码");
+            document.getElementById("UserPhone").value="";
+            document.getElementById("UserPhone").focus();
+            return false;
+        }
+        }
+        
+        
+          function supplier(){
                var color=document.getElementById("kucunbiandong").value;
                if(color==<%=49%>){
               document.getElementById("kucunbiandong").style.background="#808080";

@@ -99,8 +99,15 @@
    .btn-shopPower{color:#fff;background-color:#DAA520;border-color:#B0E0E6
  window;width: 100%;height: 100%; font-size:13px; }
 
- 
- 
+ /*上架日志管理*/
+
+
+   #form_diary{
+   border-radius: 26px;
+    padding: 10px; 
+    width: 100%;
+    height: 11%; 
+}
  
  
  
