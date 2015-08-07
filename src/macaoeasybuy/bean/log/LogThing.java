@@ -10,6 +10,7 @@ public class LogThing {
 	private int LogLevel;
 	private String LogUpTime;
 	private String UserLogId;
+	private int UserNumber;
 	public int getOid() {
 		return Oid;
 	}
@@ -57,6 +58,12 @@ public class LogThing {
 	}
 	public void setUserLogId(String userLogId) {
 		UserLogId = userLogId;
+	}
+	public int getUserNumber() {
+		return UserNumber;
+	}
+	public void setUserNumber(int userNumber) {
+		UserNumber = userNumber;
 	}
 	
 	

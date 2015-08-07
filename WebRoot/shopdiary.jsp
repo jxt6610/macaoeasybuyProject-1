@@ -144,6 +144,7 @@ ArrayList<LogThing> list=LogThingDao.queryAllLogThing();
      </form>
        </th>
        <th>
+        <form action="UpdateLogStstueDone" name="wancheng" method="post">
        <div class="panel-group" id="accordion">
        <%for(int i=0;i<list.size();i++){ 
        if(list.get(i).getLogStatue()==1){%>
@@ -167,16 +168,11 @@ ArrayList<LogThing> list=LogThingDao.queryAllLogThing();
      <tr><td colspan="3"><small>創建于<%=list.get(i).getLogUpTime() %></small></td></tr>
      <tr>
      <th>
-         <select class="form-control" name="">
-         <option>在辦事宜</option>
-         </select>
+        <input type="hidden" name="UserLogoid" value="<%=list.get(i).getOid()%>">
      </th>
      <th>
-          <select class="form-control" name="">
-         <option>普通日志</option>
-         </select>
      </th>
-     <th>  <button type="button" class="btn-danger" id="form_diary">保存修改</button>        
+     <th>  <button type="submit" class="btn-danger" id="form_diary">已完成</button>        
      </th>
      </tr>
      </table>
@@ -185,6 +181,7 @@ ArrayList<LogThing> list=LogThingDao.queryAllLogThing();
   </div>
   <%} }%>
 </div>
+</form>
        </th>
        
        
@@ -215,14 +212,14 @@ ArrayList<LogThing> list=LogThingDao.queryAllLogThing();
      <tr><th colspan="3"><%=list.get(i).getLogBody() %></th></tr>
      <tr><td colspan="3"><small>創建于<%=list.get(i).getLogUpTime() %></small></td></tr>
      <tr>
-     <th>參與人</th>     <th>0</th>
+     <th>參與人:</th> <th> <%=UserDaoManage.queryId(list.get(i).getUserLogId()).getUserName()%></th>
      </tr>
      <tr>
      <th width="50%">
-     
+     <input type="hidden" name="UserLogoid" value="<%=list.get(i).getOid()%>">
      </th>
      <th>
-         <button type="reset" class="btn-danger" id="form_diary">接受</button>
+         <button type="submit" class="btn-danger" id="form_diary">接受</button>
      </th>
      </tr>
      </table>

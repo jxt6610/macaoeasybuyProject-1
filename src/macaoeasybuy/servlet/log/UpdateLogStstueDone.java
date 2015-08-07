@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import macaoeasybuy.dao.log.LogThingDao;
 
-public class UpdateLogUserStstute extends HttpServlet {
-
+public class UpdateLogStstueDone extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -20,14 +19,11 @@ public class UpdateLogUserStstute extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		String UserLogId=new String(request.getParameter("UserLogoid").getBytes("ISO-8859-1"),"utf-8");//»’÷æ±‡∫≈
-		int UserLogOid=Integer.parseInt(UserLogId);
-			LogThingDao.updateUserLogStatueIng(UserLogOid);
-		
-		
-		
-		response.sendRedirect("shopdiary.jsp");
+		int UserOid=Integer.parseInt(UserLogId);
+		LogThingDao.updateUserLogStatueDone(UserOid);
+     	response.sendRedirect("shopdiary.jsp");
+
 	}
 
 }

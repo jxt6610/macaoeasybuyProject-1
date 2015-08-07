@@ -32,7 +32,7 @@ public class ShopLogManage extends HttpServlet {
 		for (int i=0; i<checkBox.length; i++){
 			int lOgStatue=Integer.parseInt(LogStatue);
 			int lOglevel=Integer.parseInt(LogLevel);
-			LogThingDao.insertLog(LogId, LogTitle, LogBody, lOgStatue, lOglevel,checkBox[i]);
+			LogThingDao.insertLog(LogId, LogTitle, LogBody, lOgStatue, lOglevel,checkBox[i],checkBox.length);
 		}
          response.sendRedirect("shopdiary.jsp");
 
