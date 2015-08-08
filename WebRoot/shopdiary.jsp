@@ -94,7 +94,7 @@ ArrayList<LogThing> list=LogThingDao.queryAllLogThing();
               選擇參與人員
             </h4>
          </div>
-         <div class="modal-body" >
+         <div class="modal-body">
          被選中的人員可以看到您發布的最新消息！
          <center>
          <table width="200%" class="table table-bordered table-hover">
@@ -134,7 +134,7 @@ ArrayList<LogThing> list=LogThingDao.queryAllLogThing();
           <th><input type="checkbox" name="checkBox" value="<%=userall.get(a).getUserId()%>"></th>
           </tr>
             <%} %>
-            <tr><th colspan="8"><center><button type="button" class="btn-lg0" style="background-color: #E6E6FA;width: 100%">確定</button></center></th></tr>
+            <tr></th></tr>
         </table>
        </center>
          </div>
@@ -191,19 +191,17 @@ ArrayList<LogThing> list=LogThingDao.queryAllLogThing();
        <th><!-- 待办事宜 -->
        <form action="UpdateLogUserStstute" name="daiban" method="post">
        <div class="panel-group" id="accordion">
-        <%for(int i=0;i<list.size();i++){ 
-       if(list.get(i).getLogStatue()==2){%>
-  <div class="panel panel-info">
+      <%for(int i=0;i<list.size();i++){            
+       if(list.get(i).getLogStatue()==3){%>
+   <div class="panel panel-info">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" 
           href="#collapseThreeThing<%=i%>">
-            <%=list.get(i).getLogTitle() %>  第 <%=i+1%> 条
+          <%=list.get(i).getLogTitle() %>
         </a>
-         <%if(list.get(i).getLogLevel()==2) {%>
         <tt><small><%=list.get(i).getLogUpTime() %></small>
         <img src="image/loginImages/new_infor.png" align="right"></tt>
-        <%} %>
       </h4>
     </div>
     <div id="collapseThreeThing<%=i%>" class="panel-collapse collapse">
@@ -212,7 +210,7 @@ ArrayList<LogThing> list=LogThingDao.queryAllLogThing();
      <tr><th colspan="3"><%=list.get(i).getLogBody() %></th></tr>
      <tr><td colspan="3"><small>創建于<%=list.get(i).getLogUpTime() %></small></td></tr>
      <tr>
-     <th>參與人:</th> <th> <%=UserDaoManage.queryId(list.get(i).getUserLogId()).getUserName()%></th>
+     <th>參與人:</th> <th> <%=UserDaoManage.queryId(list.get(i).getLogId()).getUserName()%></th>
      </tr>
      <tr>
      <th width="50%">
@@ -233,26 +231,26 @@ ArrayList<LogThing> list=LogThingDao.queryAllLogThing();
        
        <th><!-- 完成事宜 -->
        <div class="panel-group" id="accordion">
-   <%for(int j=0;j<list.size();j++){ 
-       if(list.get(j).getLogStatue()==3){%>
+   <%for(int i=0;i<list.size();i++){            
+       if(list.get(i).getLogStatue()==3){%>
    <div class="panel panel-success">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" 
-          href="#collapseTwoThingHave2<%=j%>">
-            <%=list.get(j).getLogTitle() %>  第 <%=j+1%> 条
+          href="#collapseTwoThingHave2<%=i%>">
+            <%=list.get(i).getLogTitle() %>  第 <%=i+1%> 条
         </a>
-         <%if(list.get(j).getLogLevel()==2) {%>
-        <tt><small><%=list.get(j).getLogUpTime() %></small>
+         <%if(list.get(i).getLogLevel()==2) {%>
+        <tt><small><%=list.get(i).getLogUpTime() %></small>
         <img src="image/loginImages/new_infor.png" align="right"></tt>
         <%} %>
       </h4>
     </div>
-    <div id="collapseTwoThingHave2<%=j%>" class="panel-collapse collapse">
+    <div id="collapseTwoThingHave2<%=i%>" class="panel-collapse collapse">
       <div class="panel-body">
         <table class="table table-bordered table-hover" width="100%">
-     <tr><th colspan="3"><%=list.get(j).getLogBody() %></th></tr>
-     <tr><td colspan="3"><small>創建于<%=list.get(j).getLogUpTime() %></small></td></tr>
+     <tr><th colspan="3"><%=list.get(i).getLogBody() %></th></tr>
+     <tr><td colspan="3"><small>創建于<%=list.get(i).getLogUpTime() %></small></td></tr>
      <tr>
      <th>
          <select class="form-control" name="">

@@ -65,6 +65,13 @@
     <servlet-name>UpdateLogStstueDone</servlet-name>
     <servlet-class>macaoeasybuy.servlet.log.UpdateLogStstueDone</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>StoreServlet</servlet-name>
+    <servlet-class>macaoeasybuy.servlet.store.StoreServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -161,6 +168,15 @@
   <servlet-mapping>
     <servlet-name>UpdateLogStstueDone</servlet-name>
     <url-pattern>/UpdateLogStstueDone</url-pattern>
+  </servlet-mapping>
+  <!-- 
+  功能：修改商店设置信息
+  编者：徐新院
+  时间：2015/8/8
+   -->
+  <servlet-mapping>
+    <servlet-name>StoreServlet</servlet-name>
+    <url-pattern>/StoreServlet</url-pattern>
   </servlet-mapping>
 
 

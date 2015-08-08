@@ -42,7 +42,10 @@ User user = (User)session.getAttribute("user");
    <th><a href="productmanage.jsp">管理商品</a></th>
    <th><a href="addgoods.jsp">添加商品</a></th>
    <th><a href="shopmember.jsp">店员管理</a></th>
-   <th><a href="shopdiary.jsp">日志管理</a></th></tr>
+   <th><a href="shopdiary.jsp">日志管理</a></th>
+   <th><a href="shopsetting.jsp">店铺设置</a></th>
+   
+   </tr>
     </table>
     
   </body>

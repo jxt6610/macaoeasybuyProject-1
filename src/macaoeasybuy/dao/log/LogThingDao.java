@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import macaoeasybuy.bean.log.LogThing;
+import macaoeasybuy.bean.login.User;
 import macaoeasybuy.dao.logindao.DBConnection;
 import macaoeasybuy.dao.logindao.UserDaoManage;
 
@@ -27,12 +28,13 @@ public class LogThingDao {
 		
 		ArrayList<LogThing> list=LogThingDao.queryAllLogThing();
 		//System.out.println(list.get(0).getLogBody());
+		int j=0;
 		for(int i=0;i<list.size();i++){
 			if(list.get(i).getLogStatue()==2&&list.get(i).getUserNumber()==5){
-				System.out.println(list.get(i).getLogTitle());
+				j=i;
 			}
 		}
-
+		System.out.println(list.get(j).getLogTitle());
 		//LogThingDao.insertLog("00002", "放假通知", "国庆放假", 2, 1);
 	}
 	
@@ -179,5 +181,49 @@ public static void updateUserLogStatueDone(int Oid){
      }
      
  }
+
+/*
+ * 功能：根据用户编号查询日志信息
+ * 编者：徐新院
+ * 时间：2015/8/8
+ * */
+@SuppressWarnings("null")
+public static ArrayList<LogThing> queryLogUserId(String userId){//姓名
+ ArrayList<LogThing>list = null;
+    String sql = "select * from LogThing where UserLogId=?";
+    try {
+        conn = DBConnection.getConnection();
+        ps = conn.prepareStatement(sql);
+        ps.setString(1,userId);
+        rs = ps.executeQuery();
+        LogThing logthing;
+        while(rs.next()){
+            //取出数据
+        	logthing=new LogThing();
+        	logthing.setOid(rs.getInt("Oid"));
+        	logthing.setLogId(rs.getString("LogId"));
+        	logthing.setLogTitle(rs.getString("LogTitle"));
+        	logthing.setLogBody(rs.getString("LogBody"));
+        	logthing.setLogStatue(rs.getInt("LogStatue"));
+        	logthing.setLogLevel(rs.getInt("LogLevel"));
+        	logthing.setLogUpTime(rs.getString("LogUpTime"));
+        	logthing.setUserLogId(rs.getString("UserLogId"));
+        	logthing.setUserNumber(rs.getInt("UserNumber"));
+        	list.add(logthing);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(LogThingDao.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+        try {
+            if(rs!=null)rs.close();
+            if(ps!=null)ps.close();
+            if(conn!=null)conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(LogThingDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+	return list;
+}
+
 	
 }
