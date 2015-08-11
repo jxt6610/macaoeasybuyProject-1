@@ -36,7 +36,7 @@ ArrayList<Goods>goodsList=GoodsManage.queryAllGoods();
    <%for(int j=0;j<4;j++){ %>
    <th width="25%" height="50%">
    <table class="table table-bordered table-hover" border="2" bordercolor="#A52A2A" width="100%" style="margin-bottom: -1%;">
-     <tr><th rowspan="4" width="30%"><a href="editgoods.jsp?goodsNo=<%=goodsList.get(num).getGoodsNo()%>"><img src="image/loginImages/pr02.jpg" width="100%"></a></th>
+     <tr><th rowspan="4" width="30%"><a href="editgoods.jsp?goodsNo=<%=goodsList.get(num).getOid()%>"><img src="image/loginImages/pr02.jpg" width="100%"></a></th>
      <th><%=goodsList.get(num).getGoodsName() %></th>
      <td rowspan="2" width="20%"><input type="button" name=""  id="up" value="已上架" class="btn-warning" ></td>
      </tr> 
@@ -55,7 +55,7 @@ ArrayList<Goods>goodsList=GoodsManage.queryAllGoods();
 <%for(int a=0;a<Col;a++){ %>
   <th width="25%" height="50%">
    <table class="table table-bordered table-hover" border="2" bordercolor="#A52A2A" width="100%" style="margin-bottom: -1%;">
-     <tr><th rowspan="4" width="30%"><a href="editgoods.jsp?goodsNo=<%=goodsList.get(num).getGoodsNo()%>"><img src="image/loginImages/pr02.jpg" width="100%"></a></th>
+     <tr><th rowspan="4" width="30%"><a href="editgoods.jsp?goodsNo=<%=goodsList.get(num).getOid()%>"><img src="image/loginImages/pr02.jpg" width="100%"></a></th>
      <th><%=goodsList.get(num).getGoodsName() %></th>
      <td rowspan="2" width="20%"><input type="button" name="" value="已上架" class="btn-warning" ></td>
      </tr> 
@@ -75,7 +75,7 @@ ArrayList<Goods>goodsList=GoodsManage.queryAllGoods();
    <%for(int j=0;j<4;j++){ %>
    <th width="25%" height="50%">
    <table class="table table-bordered table-hover" border="2" bordercolor="#A52A2A" width="100%" style="margin-bottom: -1%;">
-     <tr><th rowspan="4" width="30%"><a href="editgoods.jsp?goodsNo=<%=goodsList.get(num).getGoodsNo()%>"><img src="image/loginImages/pr02.jpg" width="100%"></a></button></th>
+     <tr><th rowspan="4" width="30%"><a href="editgoods.jsp?goodsNo=<%=goodsList.get(num).getOid()%>"><img src="image/loginImages/pr02.jpg" width="100%"></a></button></th>
      <th><%=goodsList.get(num).getGoodsName() %></th>
      <td rowspan="2" width="20%"><input type="button" name="" value="已上架" class="btn-warning" ></td>
      </tr> 

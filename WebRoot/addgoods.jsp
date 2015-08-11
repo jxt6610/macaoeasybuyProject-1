@@ -75,7 +75,7 @@ int FatherNum=8;
    <tr><td colspan="4"><input type="text"  class="form-control" name="GoodsNote"  value="" placeholder="請輸入商品描述" required></td></tr>
    </table>
    
-   <table class="table table-bordered table-hover" width="100%">
+   <table class="table table-bordered table-hover" width="100%" id="createtable">
    <tr>
    <th width="25%" ><center><img src="image/loginImages/one1.png">請選擇商品規格</center></th>
    <th width="25%"><center><img src="image/loginImages/two1.png">請填寫此規格商品的資料</center></th>
@@ -122,8 +122,8 @@ int FatherNum=8;
    </tr>
    </table>
    </th>
-   <td><center><button type="button" class="btn-lg0">上傳<br>此規格圖片</button></center></td>
-   <th><center><button type="button" class="btn-warning" id="add_goods_guige"><img alt="添加規格" src="image/loginImages/add.png">添加下一个规格<br>商品规格</button></center></th>
+   <td><center><input type="file" value="" name="imagefile" class="table table-bordered table-hover"><button type="button" class="btn-lg0">上傳<br>此規格圖片</button></center></td>
+   <th><center><button type="button" class="btn-warning" id="add_goods_guige" onclick="NewTable();"><img alt="添加規格" src="image/loginImages/add.png">添加下一个规格<br>商品规格</button></center></th>
    </tr>
    </table>
    
@@ -256,7 +256,46 @@ int FatherNum=8;
 </div><!-- /.modal -->
 </div>
 
+<script>
+ var j=0
+  function NewTable(){
+  j ++
+  R = createtable.insertRow()
+  C = R.insertCell()
+  C.innerHTML = "   <select name='ColorCh' class='form-control'><option value='1'>請選擇規格一</option><%for(int i=0;i<color.size();i++){ %>"+
+   "<option value='<%=color.get(i).getOid() %>'><%=color.get(i).getColorCh() %></option> <%} %></select> "+
+   " <select name='ColorEn' class='form-control'> <option value='1'>請選擇規格二（如需要）</option> <%for(int i=0;i<color.size();i++){ %>"+
+   "<option value='<%=color.get(i).getOid()%>'><%=color.get(i).getColorEn()%></option> <%} %></select>"+
+   " <select name='Size' class='form-control'><option value='30'>請選擇規格三（如需要）</option>"+
+   "<option value='30'>30码</option> <option value='32'>32码</option><option value='35'>35码</option></select>"
+  C = R.insertCell()
+  C.innerHTML = " <table class='table table-bordered table-hover' width='100%'><tr> <td width='35%''>此規格商品之庫存量</td>  <td><input type='text'   value='' placeholder='此規格商品之庫存量' required></td><td width='10%'>（件）</td>"+
+  " </tr>  <tr><td width='35%''>此規格商品之采購價</td> <td><input type='text'  placeholder='此規格商品之采購價'></td> <td >￥0.00</td>"+
+  " </tr> <tr> <td >此規格商品之售價</td> <td><input type='text'  placeholder='此規格商品之售價' ></td><td>￥0.00</td></tr></table>"
+  C = R.insertCell()
+  C.innerHTML = "<center><button type='button' class='btn-lg0'>上傳<br>此規格圖片</button></center>"
+  C = R.insertCell()
+  C.innerHTML = "<input type='button'  value='删除' class='btn-lg0' onclick='table_delete(this)'>"
+ 
+ }
+ function deleteRow1(obj){
+  alert(obj.parentElement.parentElement.rowIndex+1);
+ // createtable.deleteRow(obj.parentElement.parentElement.rowIndex);
+  createtable.deleteRow(obj.parentElement.parentElement.rowIndex);
+ }
+  function table_delete(obj) {//删除
 
+       // window.open(encodeURI(url + "?userName=" + userName));
+        var r=confirm("确定删除吗？");
+           if(r==false){
+       return false;
+         }else{
+           createtable.deleteRow(obj.parentElement.parentElement.rowIndex);
+return true;
+}
+
+    }
+</script>
 
   </body>
 </html>

@@ -37,9 +37,9 @@ public class GoodsManage {
 //		for(int i=0;i<GoodsManage.queryAllGoods().size();i++){
 //			System.out.println(GoodsManage.queryAllGoods().get(i).getGoodsName());;
 //		}
-		GoodsManage.updateGoodsInformation(6, "110", "GoodsName", 1, 1, 100, 100.0, 95.5, 10000, "想马上开学考数学新手卡", 1);
+		//GoodsManage.updateGoodsInformation(6, "110", "GoodsName", 1, 1, 100, 100.0, 95.5, 10000, "想马上开学考数学新手卡", 1);
 //		ArrayList<Goods> goodq=GoodsManage.queryGoodsId("63118264820157710001");
-//		System.out.println(goodq.get(0).getGoodsName());
+		System.out.println(GoodsManage.queryGoodsTypeChilds("33").get(0).getTypeName());
 	}
 	
 	/*
@@ -125,8 +125,8 @@ public void insertGoods(String GoodsNo,String GoodsName,int TypeName,int Color,i
      try {
     	 conn = DBConnection.getConnection();
            ps = conn.prepareStatement(sql);
-           ps.setString(1,GoodsNo);
-           ps.setString(2,GoodsName);
+           ps.setString(1,GoodsName);
+           ps.setString(2,GoodsNo);
            ps.setInt(3,TypeName);
            ps.setInt(4,Color);
            ps.setInt(5,Size);
@@ -209,7 +209,57 @@ public void insertGoods(String GoodsNo,String GoodsName,int TypeName,int Color,i
 			return list;
 	    }
 	 
-	 
+	 /*
+		 * 功能：根据商品编号查询所有的商品信息(oid)
+		 * 编者：徐新院
+		 * 时间：2015/7/29
+		 * */
+	 public static ArrayList<Goods> queryGoodsOid(int oid){//
+			
+		    Goods good;
+		  ArrayList<Goods> list=new ArrayList();
+		        String sql = "select * from Goods where Oid=?";
+		        try {
+		            conn = DBConnection.getConnection();
+		            ps = conn.prepareStatement(sql);
+		            ps.setInt(1,oid);
+		            rs = ps.executeQuery();
+		            while(rs.next()){
+		            	 good=new Goods();
+		            	 good.setOid(rs.getInt("Oid"));
+		            	 good.setGoodsNo(rs.getString("GoodsNo")) ;
+		                 good.setGoodsName( rs.getString("GoodsName"));
+		                 good.setGoodsType( rs.getInt("GoodsType"));
+		                 good.setGoodsColor( rs.getInt("GoodsColor"));
+		                 good.setGoodsSize(rs.getInt("GoodsSize"));
+		                 good.setGoodsActiveprice( rs.getInt("GoodsActiveprice"));
+		                 good.setGoodsMarketPrice( rs.getInt("GoodsMarketPrice"));
+		                 good.setGoodsNum(rs.getInt("GoodsNum"));
+		                 good.setGoodsLabel(rs.getInt("GoodsLabel"));
+		                 good.setGoodsPakages( rs.getString("GoodsPakages"));
+		                 good.setIsup(rs.getInt("Isup"));
+		                 good.setGoodsNote(rs.getString("GoodsNote"));
+		                 good.setGoodsState(rs.getInt("GoodsState"));
+		                 good.setGoodsSupplier(rs.getInt("GoodsSupplier"));
+		                 good.setGoodsImagePath( rs.getString("GoodsImagePath"));
+		                 good.setGoodsUpTime( rs.getString("GoodsUpTime"));
+		                 good.setGoodsDownTime(rs.getString("GoodsDownTime"));
+		                list.add(good);
+		            }
+		        } catch (SQLException ex) {
+		            Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+		        }finally{
+		            try {
+		                if(rs!=null)rs.close();
+		                if(ps!=null)ps.close();
+		                if(conn!=null)conn.close();
+		            } catch (SQLException ex) {
+		                Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+		            }
+		        }
+				return list;
+		    }
+		 
 	 	
 	 /*
 		 * 功能：根据商品编号修改商品信息
@@ -472,6 +522,44 @@ public void insertGoods(String GoodsNo,String GoodsName,int TypeName,int Color,i
 			return list;
 
 	    }
+	 
+	 /**功能：查询所有的商品子分类(带参数)
+	  * 编者：徐新院
+	  * 时间：2015/7/31
+	  * 
+	  * */
+	 public static ArrayList<GoodsTypes> queryGoodsTypeChilds(String TypeSex){//
+			
+		 GoodsTypes Goodstypes;
+		  ArrayList<GoodsTypes> list=new ArrayList();
+		        String sql = "select * from GoodsTypes where TypeSex=?";
+		        try {
+		            conn = DBConnection.getConnection();
+		            ps = conn.prepareStatement(sql);
+		            ps.setString(1,TypeSex);
+		            rs = ps.executeQuery();
+		            while(rs.next()){
+		            	Goodstypes=new GoodsTypes();
+		            	Goodstypes.setOid(rs.getInt("Oid"));
+		            	Goodstypes.setTypeId(rs.getString("TypeId")) ;
+		            	Goodstypes.setTypeName( rs.getString("TypeName"));
+		            	Goodstypes.setTypeParentId( rs.getString("TypeParentId"));
+		            	Goodstypes.setTypeSex( rs.getInt("TypeSex"));
+		                list.add(Goodstypes);
+		            }
+		        } catch (SQLException ex) {
+		            Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+		        }finally{
+		            try {
+		                if(rs!=null)rs.close();
+		                if(ps!=null)ps.close();
+		                if(conn!=null)conn.close();
+		            } catch (SQLException ex) {
+		                Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+		            }
+		        }
+				return list;
+		    }
 	 
 	 /**功能：查询全部供应商
 	  * 编者：徐新院

@@ -15,6 +15,7 @@ ArrayList<GoodsTypes> goodsFatherTypes=GoodsManage.queryAllGoodsFatherTypes();
 ArrayList<GoodsTypes> goodsChildTypes=GoodsManage.queryAllGoodsChildTypes();
 
 String  goodsNo0=(String)request.getParameter("goodsNo");
+int goodsOid=Integer.parseInt(goodsNo0);
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -33,7 +34,8 @@ String  goodsNo0=(String)request.getParameter("goodsNo");
   <body>
 
  <div id="container_products" >
-  <%ArrayList<Goods> goodEvery=GoodsManage.queryGoodsId(goodsNo0); 
+  <%--ArrayList<Goods> goodEvery=GoodsManage.queryGoodsId(goodsNo0); --%>
+  <%ArrayList<Goods> goodEvery=GoodsManage.queryGoodsOid(goodsOid); 
 %>
  <form action="UpdateGoods" name="updateGoods" method="post">
 

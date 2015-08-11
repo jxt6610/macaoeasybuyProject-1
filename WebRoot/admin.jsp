@@ -44,6 +44,7 @@ User user = (User)session.getAttribute("user");
    <th><a href="shopmember.jsp">店员管理</a></th>
    <th><a href="shopdiary.jsp">日志管理</a></th>
    <th><a href="shopsetting.jsp">店铺设置</a></th>
+   <th><a href="test.jsp">测试</a></th>
    
    </tr>
     </table>
