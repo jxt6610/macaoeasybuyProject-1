@@ -1,7 +1,9 @@
 package macaoeasybuy.tool.pagebean;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 public class DataTimeNumber {
@@ -125,4 +127,16 @@ public class DataTimeNumber {
 		return Lognumber;
 		 
 	 }
+	 
+	 
+	 
+	 public static String Time(){
+		 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
+		 Date now = new Date(); 
+
+		 String hehe = dateFormat.format( now ); 
+		 System.out.println(hehe);
+		return hehe; 
+		      
+		    }
 }

@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -18,6 +20,7 @@ import macaoeasybuy.bean.goods.Goods;
 import macaoeasybuy.bean.goods.GoodsTypes;
 import macaoeasybuy.bean.goods.Supplier;
 import macaoeasybuy.dao.logindao.DBConnection;
+import macaoeasybuy.tool.pagebean.DataTimeNumber;
 
 public class GoodsManage {
 
@@ -39,7 +42,12 @@ public class GoodsManage {
 //		}
 		//GoodsManage.updateGoodsInformation(6, "110", "GoodsName", 1, 1, 100, 100.0, 95.5, 10000, "想马上开学考数学新手卡", 1);
 //		ArrayList<Goods> goodq=GoodsManage.queryGoodsId("63118264820157710001");
-		System.out.println(GoodsManage.queryGoodsTypeChilds("33").get(0).getTypeName());
+		//System.out.println(GoodsManage.queryGoodsTypeChilds("33").get(0).getTypeName());
+		
+		int a=GoodsManage.querySouSuo("01008-00004").size();
+		for(int i=0;i<a;i++){
+		System.out.println(GoodsManage.querySouSuo("小%").get(i).getGoodsName());;
+		}
 	}
 	
 	/*
@@ -52,6 +60,439 @@ public class GoodsManage {
 	        Statement stmt = null;
 	        ResultSet rs = null;
 	        String sql = "select * from Goods";
+	    Goods good;
+	  ArrayList<Goods> list=new ArrayList();
+	        try {
+	            conn = DBConnection.getConnection();
+	            stmt =conn.createStatement();
+	            rs = stmt.executeQuery(sql);
+	            while (rs.next()){
+	            	  good=new Goods();
+	            	 good.setOid(rs.getInt("Oid"));
+	            	 good.setGoodsNo(rs.getString("GoodsNo")) ;
+	                 good.setGoodsName( rs.getString("GoodsName"));
+	                 good.setGoodsType( rs.getInt("GoodsType"));
+	                 good.setGoodsColor( rs.getInt("GoodsColor"));
+	                 good.setGoodsSize(rs.getInt("GoodsSize"));
+	                 good.setGoodsActiveprice( rs.getInt("GoodsActiveprice"));
+	                 good.setGoodsMarketPrice( rs.getInt("GoodsMarketPrice"));
+	                 good.setGoodsNum(rs.getInt("GoodsNum"));
+	                 good.setGoodsLabel(rs.getInt("GoodsLabel"));
+	                 good.setGoodsPakages( rs.getString("GoodsPakages"));
+	                 good.setIsup(rs.getInt("Isup"));
+	                 good.setGoodsNote(rs.getString("GoodsNote"));
+	                 good.setGoodsState(rs.getInt("GoodsState"));
+	                 good.setGoodsSupplier(rs.getInt("GoodsSupplier"));
+	                 good.setGoodsImagePath( rs.getString("GoodsImagePath"));
+	                 good.setGoodsUpTime( rs.getString("GoodsUpTime"));
+	                 good.setGoodsDownTime(rs.getString("GoodsDownTime"));
+	                list.add(good);
+	                
+	            }
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	        } finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+	                if (stmt != null) {
+	                	stmt.close();
+	                }
+	                if (conn != null) {
+	                    conn.close();
+	                }
+	            } catch (SQLException ex) {
+	                Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	            }
+	        }
+			return list;
+
+	    }
+	 
+	
+	
+	/*
+	 * 功能：查询所有的商品信息(按照升序排序)
+	 * 编者：徐新院
+	 * 时间：2015/8/12
+	 * */
+	public  static  ArrayList<Goods> queryAllGoodsASC() {
+		   Connection conn = null;
+	        Statement stmt = null;
+	        ResultSet rs = null;
+	        String sql = "select * from Goods order by GoodsUpTime asc";
+	    Goods good;
+	  ArrayList<Goods> list=new ArrayList();
+	        try {
+	            conn = DBConnection.getConnection();
+	            stmt =conn.createStatement();
+	            rs = stmt.executeQuery(sql);
+	            while (rs.next()){
+	            	  good=new Goods();
+	            	 good.setOid(rs.getInt("Oid"));
+	            	 good.setGoodsNo(rs.getString("GoodsNo")) ;
+	                 good.setGoodsName( rs.getString("GoodsName"));
+	                 good.setGoodsType( rs.getInt("GoodsType"));
+	                 good.setGoodsColor( rs.getInt("GoodsColor"));
+	                 good.setGoodsSize(rs.getInt("GoodsSize"));
+	                 good.setGoodsActiveprice( rs.getInt("GoodsActiveprice"));
+	                 good.setGoodsMarketPrice( rs.getInt("GoodsMarketPrice"));
+	                 good.setGoodsNum(rs.getInt("GoodsNum"));
+	                 good.setGoodsLabel(rs.getInt("GoodsLabel"));
+	                 good.setGoodsPakages( rs.getString("GoodsPakages"));
+	                 good.setIsup(rs.getInt("Isup"));
+	                 good.setGoodsNote(rs.getString("GoodsNote"));
+	                 good.setGoodsState(rs.getInt("GoodsState"));
+	                 good.setGoodsSupplier(rs.getInt("GoodsSupplier"));
+	                 good.setGoodsImagePath( rs.getString("GoodsImagePath"));
+	                 good.setGoodsUpTime( rs.getString("GoodsUpTime"));
+	                 good.setGoodsDownTime(rs.getString("GoodsDownTime"));
+	                list.add(good);
+	                
+	            }
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	        } finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+	                if (stmt != null) {
+	                	stmt.close();
+	                }
+	                if (conn != null) {
+	                    conn.close();
+	                }
+	            } catch (SQLException ex) {
+	                Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	            }
+	        }
+			return list;
+
+	    }
+	 
+	/*
+	 * 功能：查询所有的商品信息(按照降序排序)
+	 * 编者：徐新院
+	 * 时间：2015/8/12
+	 * */
+	public  static  ArrayList<Goods> queryAllGoodsDESC() {
+		   Connection conn = null;
+	        Statement stmt = null;
+	        ResultSet rs = null;
+	        String sql = "select * from Goods order by GoodsUpTime desc";
+	    Goods good;
+	  ArrayList<Goods> list=new ArrayList();
+	        try {
+	            conn = DBConnection.getConnection();
+	            stmt =conn.createStatement();
+	            rs = stmt.executeQuery(sql);
+	            while (rs.next()){
+	            	  good=new Goods();
+	            	 good.setOid(rs.getInt("Oid"));
+	            	 good.setGoodsNo(rs.getString("GoodsNo")) ;
+	                 good.setGoodsName( rs.getString("GoodsName"));
+	                 good.setGoodsType( rs.getInt("GoodsType"));
+	                 good.setGoodsColor( rs.getInt("GoodsColor"));
+	                 good.setGoodsSize(rs.getInt("GoodsSize"));
+	                 good.setGoodsActiveprice( rs.getInt("GoodsActiveprice"));
+	                 good.setGoodsMarketPrice( rs.getInt("GoodsMarketPrice"));
+	                 good.setGoodsNum(rs.getInt("GoodsNum"));
+	                 good.setGoodsLabel(rs.getInt("GoodsLabel"));
+	                 good.setGoodsPakages( rs.getString("GoodsPakages"));
+	                 good.setIsup(rs.getInt("Isup"));
+	                 good.setGoodsNote(rs.getString("GoodsNote"));
+	                 good.setGoodsState(rs.getInt("GoodsState"));
+	                 good.setGoodsSupplier(rs.getInt("GoodsSupplier"));
+	                 good.setGoodsImagePath( rs.getString("GoodsImagePath"));
+	                 good.setGoodsUpTime( rs.getString("GoodsUpTime"));
+	                 good.setGoodsDownTime(rs.getString("GoodsDownTime"));
+	                list.add(good);
+	                
+	            }
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	        } finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+	                if (stmt != null) {
+	                	stmt.close();
+	                }
+	                if (conn != null) {
+	                    conn.close();
+	                }
+	            } catch (SQLException ex) {
+	                Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	            }
+	        }
+			return list;
+
+	    }
+	 
+	/*
+	 * 功能：按照精确查询在导航条输入的信息
+	 * 编者：徐新院
+	 * 时间：2015/8/12
+	 * */
+	public  static  ArrayList<Goods> querySouSuo(String GoodsName) {
+		   Connection conn = null;
+	        Statement stmt = null;
+	        ResultSet rs = null;
+	        String sql = "select * from Goods where GoodsName like  '小%'";
+	    Goods good;
+	  ArrayList<Goods> list=new ArrayList();
+	        try {
+	        	  conn = DBConnection.getConnection();
+		            ps = conn.prepareStatement(sql);
+		           // ps.setString(1,GoodsName);
+		            rs = ps.executeQuery();
+	            while (rs.next()){
+	            	  good=new Goods();
+	            	 good.setOid(rs.getInt("Oid"));
+	            	 good.setGoodsNo(rs.getString("GoodsNo")) ;
+	                 good.setGoodsName( rs.getString("GoodsName"));
+	                 good.setGoodsType( rs.getInt("GoodsType"));
+	                 good.setGoodsColor( rs.getInt("GoodsColor"));
+	                 good.setGoodsSize(rs.getInt("GoodsSize"));
+	                 good.setGoodsActiveprice( rs.getInt("GoodsActiveprice"));
+	                 good.setGoodsMarketPrice( rs.getInt("GoodsMarketPrice"));
+	                 good.setGoodsNum(rs.getInt("GoodsNum"));
+	                 good.setGoodsLabel(rs.getInt("GoodsLabel"));
+	                 good.setGoodsPakages( rs.getString("GoodsPakages"));
+	                 good.setIsup(rs.getInt("Isup"));
+	                 good.setGoodsNote(rs.getString("GoodsNote"));
+	                 good.setGoodsState(rs.getInt("GoodsState"));
+	                 good.setGoodsSupplier(rs.getInt("GoodsSupplier"));
+	                 good.setGoodsImagePath( rs.getString("GoodsImagePath"));
+	                 good.setGoodsUpTime( rs.getString("GoodsUpTime"));
+	                 good.setGoodsDownTime(rs.getString("GoodsDownTime"));
+	                list.add(good);
+	                
+	            }
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	        } finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+	                if (stmt != null) {
+	                	stmt.close();
+	                }
+	                if (conn != null) {
+	                    conn.close();
+	                }
+	            } catch (SQLException ex) {
+	                Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	            }
+	        }
+			return list;
+
+	    }
+	 
+	
+	
+	/*
+	 * 功能：查询所有的商品信息(按商品库存照降序排序)
+	 * 编者：徐新院
+	 * 时间：2015/8/12
+	 * */
+	public  static  ArrayList<Goods> queryAllGoodNumDESC() {
+		   Connection conn = null;
+	        Statement stmt = null;
+	        ResultSet rs = null;
+	        String sql = "select * from Goods order by GoodsNum desc";
+	    Goods good;
+	  ArrayList<Goods> list=new ArrayList();
+	        try {
+	            conn = DBConnection.getConnection();
+	            stmt =conn.createStatement();
+	            rs = stmt.executeQuery(sql);
+	            while (rs.next()){
+	            	  good=new Goods();
+	            	 good.setOid(rs.getInt("Oid"));
+	            	 good.setGoodsNo(rs.getString("GoodsNo")) ;
+	                 good.setGoodsName( rs.getString("GoodsName"));
+	                 good.setGoodsType( rs.getInt("GoodsType"));
+	                 good.setGoodsColor( rs.getInt("GoodsColor"));
+	                 good.setGoodsSize(rs.getInt("GoodsSize"));
+	                 good.setGoodsActiveprice( rs.getInt("GoodsActiveprice"));
+	                 good.setGoodsMarketPrice( rs.getInt("GoodsMarketPrice"));
+	                 good.setGoodsNum(rs.getInt("GoodsNum"));
+	                 good.setGoodsLabel(rs.getInt("GoodsLabel"));
+	                 good.setGoodsPakages( rs.getString("GoodsPakages"));
+	                 good.setIsup(rs.getInt("Isup"));
+	                 good.setGoodsNote(rs.getString("GoodsNote"));
+	                 good.setGoodsState(rs.getInt("GoodsState"));
+	                 good.setGoodsSupplier(rs.getInt("GoodsSupplier"));
+	                 good.setGoodsImagePath( rs.getString("GoodsImagePath"));
+	                 good.setGoodsUpTime( rs.getString("GoodsUpTime"));
+	                 good.setGoodsDownTime(rs.getString("GoodsDownTime"));
+	                list.add(good);
+	                
+	            }
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	        } finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+	                if (stmt != null) {
+	                	stmt.close();
+	                }
+	                if (conn != null) {
+	                    conn.close();
+	                }
+	            } catch (SQLException ex) {
+	                Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	            }
+	        }
+			return list;
+
+	    }
+	 
+	/*
+	 * 功能：查询所有的商品信息(按商品库存照升序排序)
+	 * 编者：徐新院
+	 * 时间：2015/8/12
+	 * */
+	public  static  ArrayList<Goods> queryAllGoodNumASC() {
+		   Connection conn = null;
+	        Statement stmt = null;
+	        ResultSet rs = null;
+	        String sql = "select * from Goods order by GoodsNum asc";
+	    Goods good;
+	  ArrayList<Goods> list=new ArrayList();
+	        try {
+	            conn = DBConnection.getConnection();
+	            stmt =conn.createStatement();
+	            rs = stmt.executeQuery(sql);
+	            while (rs.next()){
+	            	  good=new Goods();
+	            	 good.setOid(rs.getInt("Oid"));
+	            	 good.setGoodsNo(rs.getString("GoodsNo")) ;
+	                 good.setGoodsName( rs.getString("GoodsName"));
+	                 good.setGoodsType( rs.getInt("GoodsType"));
+	                 good.setGoodsColor( rs.getInt("GoodsColor"));
+	                 good.setGoodsSize(rs.getInt("GoodsSize"));
+	                 good.setGoodsActiveprice( rs.getInt("GoodsActiveprice"));
+	                 good.setGoodsMarketPrice( rs.getInt("GoodsMarketPrice"));
+	                 good.setGoodsNum(rs.getInt("GoodsNum"));
+	                 good.setGoodsLabel(rs.getInt("GoodsLabel"));
+	                 good.setGoodsPakages( rs.getString("GoodsPakages"));
+	                 good.setIsup(rs.getInt("Isup"));
+	                 good.setGoodsNote(rs.getString("GoodsNote"));
+	                 good.setGoodsState(rs.getInt("GoodsState"));
+	                 good.setGoodsSupplier(rs.getInt("GoodsSupplier"));
+	                 good.setGoodsImagePath( rs.getString("GoodsImagePath"));
+	                 good.setGoodsUpTime( rs.getString("GoodsUpTime"));
+	                 good.setGoodsDownTime(rs.getString("GoodsDownTime"));
+	                list.add(good);
+	                
+	            }
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	        } finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+	                if (stmt != null) {
+	                	stmt.close();
+	                }
+	                if (conn != null) {
+	                    conn.close();
+	                }
+	            } catch (SQLException ex) {
+	                Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	            }
+	        }
+			return list;
+
+	    }
+	
+	
+	/*
+	 * 功能：查询所有的商品信息(按商品编号升序排序)
+	 * 编者：徐新院
+	 * 时间：2015/8/12
+	 * */
+	public  static  ArrayList<Goods> queryAllGoodNOASC() {
+		   Connection conn = null;
+	        Statement stmt = null;
+	        ResultSet rs = null;
+	        String sql = "select * from Goods order by GoodsNo asc";
+	    Goods good;
+	  ArrayList<Goods> list=new ArrayList();
+	        try {
+	            conn = DBConnection.getConnection();
+	            stmt =conn.createStatement();
+	            rs = stmt.executeQuery(sql);
+	            while (rs.next()){
+	            	  good=new Goods();
+	            	 good.setOid(rs.getInt("Oid"));
+	            	 good.setGoodsNo(rs.getString("GoodsNo")) ;
+	                 good.setGoodsName( rs.getString("GoodsName"));
+	                 good.setGoodsType( rs.getInt("GoodsType"));
+	                 good.setGoodsColor( rs.getInt("GoodsColor"));
+	                 good.setGoodsSize(rs.getInt("GoodsSize"));
+	                 good.setGoodsActiveprice( rs.getInt("GoodsActiveprice"));
+	                 good.setGoodsMarketPrice( rs.getInt("GoodsMarketPrice"));
+	                 good.setGoodsNum(rs.getInt("GoodsNum"));
+	                 good.setGoodsLabel(rs.getInt("GoodsLabel"));
+	                 good.setGoodsPakages( rs.getString("GoodsPakages"));
+	                 good.setIsup(rs.getInt("Isup"));
+	                 good.setGoodsNote(rs.getString("GoodsNote"));
+	                 good.setGoodsState(rs.getInt("GoodsState"));
+	                 good.setGoodsSupplier(rs.getInt("GoodsSupplier"));
+	                 good.setGoodsImagePath( rs.getString("GoodsImagePath"));
+	                 good.setGoodsUpTime( rs.getString("GoodsUpTime"));
+	                 good.setGoodsDownTime(rs.getString("GoodsDownTime"));
+	                list.add(good);
+	                
+	            }
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	        } finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+	                if (stmt != null) {
+	                	stmt.close();
+	                }
+	                if (conn != null) {
+	                    conn.close();
+	                }
+	            } catch (SQLException ex) {
+	                Logger.getLogger(GoodsManage.class.getName()).log(Level.SEVERE, null, ex);
+	            }
+	        }
+			return list;
+
+	    }
+	
+	/*
+	 * 功能：查询所有的商品信息(按商品编号升序排序)
+	 * 编者：徐新院
+	 * 时间：2015/8/12
+	 * */
+	public  static  ArrayList<Goods> queryAllGoodGoodsActivepriceASC() {
+		   Connection conn = null;
+	        Statement stmt = null;
+	        ResultSet rs = null;
+	        String sql = "select * from Goods order by GoodsActiveprice asc";
 	    Goods good;
 	  ArrayList<Goods> list=new ArrayList();
 	        try {
@@ -121,6 +562,7 @@ public void insertGoods(String GoodsNo,String GoodsName,int TypeName,int Color,i
   int second=ca.get(Calendar.SECOND);//秒
   int WeekOfYear = ca.get(Calendar.DAY_OF_WEEK); 
  String Time=""+year+""+month+""+day;
+ String newTime=DataTimeNumber.Time();
      String sql = "insert into Goods values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
      try {
     	 conn = DBConnection.getConnection();
@@ -140,7 +582,7 @@ public void insertGoods(String GoodsNo,String GoodsName,int TypeName,int Color,i
            ps.setInt(13,GoodsState);
            ps.setInt(14,GoodsSupplier);
            ps.setString(15,GoodsImagePath);
-           ps.setString(16,"");
+           ps.setString(16,newTime);
            ps.setString(17,"");
             int rows = ps.executeUpdate();
          System.out.println("添加成功");
@@ -617,4 +1059,6 @@ public void insertGoods(String GoodsNo,String GoodsName,int TypeName,int Color,i
 
 	    }
 	 
+	 
+		 
 }

@@ -33,12 +33,12 @@ public class UpdateGoods extends HttpServlet {
 		String GoodsMarketPrice=new String(request.getParameter("GoodsMarketPrice").getBytes("ISO-8859-1"),"utf-8");//商品市场价格
 		String GoodsActiveprice=new String(request.getParameter("GoodsActiveprice").getBytes("ISO-8859-1"),"utf-8");//商品实际价格
 		String SuppLier=new String(request.getParameter("SuppLier").getBytes("ISO-8859-1"),"utf-8");//供应商
-		String SuppLierState=new String(request.getParameter("SuppLierState").getBytes("ISO-8859-1"),"utf-8");//供应商状态
+		//String SuppLierState=new String(request.getParameter("SuppLierState").getBytes("ISO-8859-1"),"utf-8");//供应商状态
 		String GoodsOid=new String(request.getParameter("GoodsOid").getBytes("ISO-8859-1"),"utf-8");//商品OID
 		
 		int Goodsoid =Integer.parseInt(GoodsOid);
 		int Goodsnum =Integer.parseInt(GoodsNum);
-		int SupplierState =Integer.parseInt(SuppLierState);
+		//int SupplierState =Integer.parseInt(SuppLierState);
 		int Supplier =Integer.parseInt(SuppLier);
 		int SizeInt =Integer.parseInt(Size);
 		int Colorch =Integer.parseInt(ColorCh);//需要处理考虑
@@ -48,7 +48,7 @@ public class UpdateGoods extends HttpServlet {
 		
 		GoodsManage.updateGoodsInformation(Goodsoid, GoodsNo, GoodsName, FathertypeName, Colorch, SizeInt, 
 				Goodsactiveprice, GoodsmarketPrice, Goodsnum, GoodsNote, Supplier);
-		response.sendRedirect("productmanage.jsp");
+		response.sendRedirect("goodsmanage.jsp");
 		
 	}
 

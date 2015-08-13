@@ -31,11 +31,11 @@ public class UserloginServlet extends HttpServlet {
 		UserDaoManage userManage=new UserDaoManage();
 		User user=userManage.loginValidate(userId);
 		if(user==null||!user.getPassWord().equals(PassWord.trim())){
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("Login.jsp").forward(request, response);
 		}else{
 			HttpSession hs = request.getSession(true);
 			hs.setAttribute("user", user);
-			response.sendRedirect("admin.jsp");
+			response.sendRedirect("index.jsp");
 		}
 		
 		
